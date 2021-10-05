@@ -1,7 +1,7 @@
 import math
 import torch 
 import torch.nn as nn
-import torch.functional as F
+import torch.nn.functional as F
 import torchvision
 
 class Basic_CNN(nn.Module):
@@ -34,7 +34,6 @@ class Basic_CNN(nn.Module):
         self.fc1 = nn.Linear(16*8*8, 16)
         self.fc2 = nn.Linear(16, 2)
 
-        # self.log = nn.Sigmoid()
     
     def forward(self, input):
         x = self.conv1(input)
@@ -58,6 +57,7 @@ class Basic_CNN(nn.Module):
         x = self.mp4(x)
 
         x = x.view(x.size(0), -1)
+        # print(x.shape)
         x = self.drop(x)
         x = self.fc1(x)
         x = self.act_fc(x)
@@ -67,4 +67,3 @@ class Basic_CNN(nn.Module):
         x = F.log_softmax(x, dim=1)
     
         return x
-
